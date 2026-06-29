@@ -185,6 +185,8 @@
   },
   "active": "bbcedcf1f3ea3a0d",
   "lastOpenFiles": [
+    "concepts/guidance.md",
+    "concepts/fine-tuning.md",
     "concepts/latent-diffusion.md",
     "concepts/dit.md",
     "concepts/u-net.md",

@@ -34,6 +34,16 @@ The original U-Net was for segmentation. Diffusion adapts it:
 - **BigGAN-style residual blocks** — more stable training than vanilla Conv-Norm-ReLU.
 - **Wider channel counts** — diffusion U-Nets are much bigger than the original biomedical one (hundreds of millions of parameters for SDXL).
 
+## Three ways to inject conditioning into a U-Net
+
+From the HF Diffusion Course Unit 2 — the canonical patterns:
+
+1. **Extra input channels.** Concatenate the conditioning into the input alongside the noisy image. Used when the condition has the same spatial shape as the image — segmentation masks, depth maps, blurred low-res images (for super-resolution). Also works for class labels: embed the label, expand spatially, concatenate.
+2. **Project-and-add to internal feature maps.** Compute an embedding (timestep, CLIP image embedding, class embedding), project to match each layer's channel count, add to layer outputs. This is how time conditioning is always done. Also how the "Image Variations" Stable Diffusion variant takes a CLIP image embedding.
+3. **Cross-attention.** Pass the conditioning as a sequence of embeddings. Add cross-attention layers in the U-Net where queries come from image features and keys/values come from the conditioning sequence. This is how text conditioning works in Stable Diffusion / SDXL — text → CLIP/T5 tokens → cross-attention in the U-Net.
+
+The three patterns aren't mutually exclusive: a typical text-to-image U-Net uses (2) for time, (3) for text, and could use (1) if you also pass a depth map.
+
 ## What it's good at
 
 - **Inductive bias for images** — convolutions are translation-equivariant, U-shape biases toward multi-scale structure. Trains efficiently from less data than transformers.

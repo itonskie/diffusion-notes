@@ -31,3 +31,9 @@ Chronological record of wiki activity.
 - Pages created: [[scheduler]], [[classifier-free-guidance]], [[u-net]], [[dit]], [[latent-diffusion]]
 - Pages updated: [[ddpm]] (status inbox → exploring; added forward/reverse math, simplified loss, sampling algorithm, score-matching connection); [[diffusion-models]] (added score-matching section, wikilinks to new pages)
 - Skipped pre-stubbing: Lilian's post mentions DDIM, Improved DDPM, LDM, ControlNet, Imagen, Consistency Models — these get wikilinks (unresolved in Obsidian) but no stub files until they're actually targeted for ingest
+
+### Ingested: HF Diffusion Course — Unit 2 intro
+- Source: https://huggingface.co/learn/diffusion-course/unit2/1
+- Pages created: [[fine-tuning]], [[guidance]]
+- Pages updated: [[u-net]] (added "Three ways to inject conditioning" section); [[reference/diffusion-course]] (added Unit 2 section + table status)
+- Notebooks not yet worked through — captured as reference

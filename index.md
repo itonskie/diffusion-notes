@@ -34,3 +34,4 @@ Central map of all knowledge pages.
 | 2026-06-29 | Wiki initialized; foundations MOC seeded from prior reading list |
 | 2026-06-29 | Ingested HF Diffusion Course Unit 1 intro → [[diffusion-models]], [[generative-models]], [[ddpm]], [[reference/diffusion-course]] |
 | 2026-06-29 | Ingested Lilian Weng diffusion post → [[scheduler]], [[classifier-free-guidance]], [[u-net]], [[dit]], [[latent-diffusion]]; deepened [[ddpm]] |
+| 2026-06-29 | Ingested HF Diffusion Course Unit 2 → [[fine-tuning]], [[guidance]]; [[u-net]] gained conditioning patterns section |
