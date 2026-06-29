@@ -36,6 +36,7 @@ Read these first — they're the synthesized form of what comes below:
 - [[ddpm]] — the foundational paper (status: developing)
 - [[papers/lora]] — original LoRA paper, NLP-focused (status: developing)
 - [[papers/cfg]] — Classifier-Free Guidance, with FID/IS empirical tradeoff (status: developing)
+- [[papers/dit]] — Diffusion Transformer architecture, the scaling story for Flux/SD3/Wan (status: developing)
 
 **Reference**
 - [[reference/diffusion-course]] — HF course resource map (Units 1 + 2 ingested)

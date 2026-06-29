@@ -18,3 +18,4 @@ Log of all ingested sources and which wiki pages they informed.
 | 2026-06-29 | [DDPM paper — arxiv abstract + ar5iv HTML](https://arxiv.org/abs/2006.11239) | [[ddpm]] (deepened with abstract, ablation table, headline FID/IS results, U-Net details, progressive lossy decompression interpretation) |
 | 2026-06-29 | [LoRA paper — ar5iv HTML](https://arxiv.org/abs/2106.09685) | [[papers/lora]], [[lora]], [[rank-decomposition]] (new pages) |
 | 2026-06-29 | [Classifier-Free Diffusion Guidance — ar5iv](https://arxiv.org/abs/2207.12598) | [[papers/cfg]] (new), [[classifier-free-guidance]] (clarified two w conventions, linked to paper page) |
+| 2026-06-29 | [DiT paper — ar5iv](https://arxiv.org/abs/2212.09748) | [[papers/dit]] (new — Gflops scaling, adaLN-Zero, conditioning mechanism ablation); [[dit]] (deepened with specific FID/Gflops numbers vs ADM/LDM) |

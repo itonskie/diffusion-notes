@@ -42,7 +42,13 @@ This is what makes DiT work where naive "ViT for diffusion" doesn't.
 
 ## Why DiT wins at scale
 
-The headline result from the paper: DiT shows **clean log-linear scaling** of FID vs compute (Gflops). U-Nets do not — they plateau.
+The headline result from the [[papers/dit|paper]]: DiT shows **clean log-linear scaling** of FID vs compute (Gflops). U-Nets do not — they plateau. Specifically:
+
+- DiT-XL/2 at **118.6 Gflops** → FID 2.27 on ImageNet 256×256 (with CFG)
+- ADM (U-Net SOTA at the time) at **1120 Gflops** → FID 3.60 on the same task
+- **DiT beat U-Net at ~10× less compute**
+
+The paper also showed that **Gflops, not parameter count, predict FID**: DiT-S/2 and DiT-B/4 have similar Gflops but very different parameter counts, and achieve essentially identical FID. This is the strongest evidence that the transformer scaling laws apply.
 
 Why does it scale better?
 - **No spatial inductive bias** — convolutions assume translation equivariance and local locality; this helps small models but constrains big ones. Transformers learn whatever bias the data wants.

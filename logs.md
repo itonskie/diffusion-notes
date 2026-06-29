@@ -53,3 +53,9 @@ Chronological record of wiki activity.
 - Pages created: [[papers/cfg]] — abstract verbatim, training algorithm (p_uncond dropout), implicit-classifier connection, FID/IS empirical tradeoff table for ImageNet 128×128
 - Pages updated: [[classifier-free-guidance]] — clarified that the paper's `w` and the ComfyUI "CFG scale" slider use different conventions (`s = w + 1`); linked to paper page
 - Key empirical finding: best FID at very low w (≈0.3, equivalent to CFG≈1.3), but text-to-image practice uses much higher CFG because the conditioning task is harder than class-conditional ImageNet
+
+### Ingested: DiT paper
+- Source: https://arxiv.org/abs/2212.09748 (Peebles & Xie, via ar5iv HTML)
+- Pages created: [[papers/dit]] — abstract, patchify mechanism, four conditioning mechanism ablation (in-context/cross-attention/adaLN/adaLN-Zero), DiT-S/B/L/XL scale lineup with Gflops, ImageNet 256/512 FID results, "Gflops not params" scaling finding, hyperparameters
+- Pages updated: [[dit]] — added specific FID/Gflops numbers anchoring the "scales better" claim (DiT-XL/2 at 118.6 Gflops beats ADM at 1120 Gflops)
+- Cleanest of the paper ingests — ar5iv had everything we needed
