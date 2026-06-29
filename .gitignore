@@ -1,0 +1,10 @@
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Large model artifacts — don't commit
+*.safetensors
+*.ckpt
+*.pt
+*.bin
