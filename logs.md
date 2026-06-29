@@ -59,3 +59,9 @@ Chronological record of wiki activity.
 - Pages created: [[papers/dit]] — abstract, patchify mechanism, four conditioning mechanism ablation (in-context/cross-attention/adaLN/adaLN-Zero), DiT-S/B/L/XL scale lineup with Gflops, ImageNet 256/512 FID results, "Gflops not params" scaling finding, hyperparameters
 - Pages updated: [[dit]] — added specific FID/Gflops numbers anchoring the "scales better" claim (DiT-XL/2 at 118.6 Gflops beats ADM at 1120 Gflops)
 - Cleanest of the paper ingests — ar5iv had everything we needed
+
+### Ingested: FLUX.1-dev model card + Flux GitHub
+- Sources: https://huggingface.co/black-forest-labs/FLUX.1-dev + https://github.com/black-forest-labs/flux
+- Pages created: [[reference/flux-vs-sdxl]] — Flux/SDXL side-by-side (12B vs 3.5B+6.6B, MMDiT vs U-Net, 16-ch vs 4-ch VAE, T5+CLIP vs CLIP-only, rectified flow vs DDPM, distilled guidance vs not), full FLUX.1 family license table from GitHub, recommended inference settings from model card, VRAM requirements
+- Model card and GitHub README are both light on architecture detail — used "†" markings to flag practitioner knowledge that isn't strictly from official sources
+- Worth a future deep-read: the rectified flow training framework (not yet in wiki); the MMDiT vs vanilla DiT differences (SD3 paper has more detail than Flux docs do)

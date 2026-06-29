@@ -39,3 +39,4 @@ Central map of all knowledge pages.
 | 2026-06-29 | Ingested LoRA paper → [[papers/lora]], [[lora]] (diffusion-applied), [[rank-decomposition]] (SVD math) |
 | 2026-06-29 | Ingested CFG paper → [[papers/cfg]]; clarified two w conventions in [[classifier-free-guidance]] |
 | 2026-06-29 | Ingested DiT paper → [[papers/dit]]; deepened [[dit]] with FID/Gflops scaling numbers |
+| 2026-06-29 | Ingested FLUX.1-dev model card + Flux GitHub → [[reference/flux-vs-sdxl]] (family table, license nuance, recommended inference, VRAM, Flux vs SDXL side-by-side) |

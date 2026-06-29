@@ -40,6 +40,7 @@ Read these first — they're the synthesized form of what comes below:
 
 **Reference**
 - [[reference/diffusion-course]] — HF course resource map (Units 1 + 2 ingested)
+- [[reference/flux-vs-sdxl]] — model comparison (12B Flux vs SDXL, license nuance, recommended inference settings, VRAM)
 
 ## Core path
 
