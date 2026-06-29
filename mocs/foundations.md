@@ -41,6 +41,7 @@ Read these first — they're the synthesized form of what comes below:
 **Reference**
 - [[reference/diffusion-course]] — HF course resource map (Units 1 + 2 ingested)
 - [[reference/flux-vs-sdxl]] — model comparison (12B Flux vs SDXL, license nuance, recommended inference settings, VRAM)
+- [[reference/scheduler-comparison]] — sampler/scheduler lookup table across A1111/Diffusers/ComfyUI naming, per-model recommendations
 
 ## Core path
 
@@ -61,8 +62,17 @@ One page per paper in [[papers/|papers/]].
 
 ## Architecture-specific reads
 
-- **Flux model card** on HF — what makes Flux different from SDXL. Capture in [[reference/flux-vs-sdxl]].
-- **One scheduler comparison post** (DPM++ / Euler / LCM). Capture in [[reference/scheduler-comparison]] and concept page [[scheduler]].
+- **Flux model card** on HF — what makes Flux different from SDXL. *Captured in [[reference/flux-vs-sdxl]].*
+- **One scheduler comparison post** (DPM++ / Euler / LCM). *Captured in [[reference/scheduler-comparison]] and concept page [[scheduler]].*
+
+## Status: foundations reading complete
+
+All Week 1 reading-list sources have been ingested. The wiki now covers the four self-test questions below. Next steps are *practice*, not more reading:
+
+- [ ] Day 3: ComfyUI local install — 3 prebuilt workflows
+- [ ] Day 4: Vast.ai + AI-Toolkit, prepare tiny dataset, verify training pipeline runs
+- [ ] Day 5: First trained Flux LoRA + inference with/without comparison
+- [ ] Day 6-7: Publish notes (this repo) + write the Week 2 LoRA subject decision
 
 ## Self-test (interview answers — write these out)
 

@@ -84,6 +84,7 @@ When training a [[lora|LoRA]] with AI-Toolkit or similar, you generally do not c
 
 ## See Also
 
+- [[reference/scheduler-comparison]] — full lookup table across tools (A1111 / k-diffusion / Diffusers / ComfyUI) with per-model recommendations
 - [[diffusion-models]]
 - [[ddpm]]
 - [[ddim]]

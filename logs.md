@@ -65,3 +65,9 @@ Chronological record of wiki activity.
 - Pages created: [[reference/flux-vs-sdxl]] — Flux/SDXL side-by-side (12B vs 3.5B+6.6B, MMDiT vs U-Net, 16-ch vs 4-ch VAE, T5+CLIP vs CLIP-only, rectified flow vs DDPM, distilled guidance vs not), full FLUX.1 family license table from GitHub, recommended inference settings from model card, VRAM requirements
 - Model card and GitHub README are both light on architecture detail — used "†" markings to flag practitioner knowledge that isn't strictly from official sources
 - Worth a future deep-read: the rectified flow training framework (not yet in wiki); the MMDiT vs vanilla DiT differences (SD3 paper has more detail than Flux docs do)
+
+### Ingested: HF Diffusers scheduler overview
+- Source: https://huggingface.co/docs/diffusers/api/schedulers/overview
+- Pages created: [[reference/scheduler-comparison]] — naming map across A1111/k-diffusion/Diffusers/ComfyUI, sigma schedule modifiers (karras/sgm_uniform/etc), pragmatic chooser per model (Flux/SDXL/SD 1.5/Wan), per-sampler-family one-line explainers (Euler/Heun/DPM/DDIM/DDPM/LCM/UniPC/DEIS), step count heuristic
+- Pages updated: [[scheduler]] — added See-Also link to the new reference page
+- Closes the foundations reading list — last source on the Week 1 list
