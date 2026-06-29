@@ -62,18 +62,18 @@ tags:
   - <relevant-tags>         # lowercase, hyphenated
 date: YYYY-MM-DD            # date created
 updated: YYYY-MM-DD         # date last modified
-status: <status>            # optional — inbox | exploring | developing | done
+status: <status>            # optional — inbox | exploring | summary | done
 ---
 ```
 
 #### Status property
-The `status` field is optional and tracks where a page is in your learning lifecycle:
+The `status` field is optional and tracks how deeply you've engaged with a source — most useful on paper pages and experiments.
 - **inbox** — captured but not yet explored
 - **exploring** — actively reading/researching
-- **developing** — being synthesized or applied
-- **done** — fully understood or complete
+- **summary** — main contributions captured on the wiki page, original source not yet deep-read end-to-end
+- **done** — fully deep-read and understood (papers) / completed and analyzed (experiments)
 
-Use `status` on concepts, papers, and experiments. Reference pages and MOCs don't need it.
+Use `status` on **papers and experiments**. Concepts, references, and MOCs don't need it — they're working summaries that get iteratively improved, not items with a "fully read" finish line.
 
 ### Linking
 - Use **Obsidian wikilinks**: `[[page-name]]` or `[[page-name|display text]]`

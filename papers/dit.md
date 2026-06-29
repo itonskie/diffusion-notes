@@ -7,7 +7,7 @@ tags:
   - paper
 date: 2026-06-29
 updated: 2026-06-29
-status: developing
+status: summary
 ---
 
 # DiT — Scalable Diffusion Models with Transformers
@@ -19,11 +19,21 @@ status: developing
 
 **Developing** — content from ar5iv HTML render. This paper introduced the architecture used by Flux, SD3, and Wan 2.2.
 
+## What this paper actually claims
+
+Before this paper, every serious diffusion model used a **U-Net** — a convolutional architecture that downsamples an image through a stack of blocks, hits a bottleneck, then upsamples back. U-Nets work great. People assumed the U-Net's specific shape (the convolutions, the skip connections, the spatial downsample-then-upsample) was important — that the architecture itself was helping the diffusion model "see" images.
+
+This paper says: nope, throw all that away. Use a **plain transformer** — the same architecture as a Vision Transformer (ViT), the one that just chops an image into patches and treats each patch as a token. Replace the U-Net entirely. Result: at the same compute budget, the transformer is *better*, and it scales more predictably (you can plot FID against Gflops and get a clean log-linear line).
+
+That single result kicked off the wave of DiT-based diffusion models you see today: Pixart, SD3, Flux, Wan. The U-Net era is basically over for new state-of-the-art models.
+
+> **Domain decode first.** Words you need: **U-Net** = the convolutional encoder-decoder architecture diffusion models used before DiT (see [[u-net]]); **transformer** = the attention-based architecture from "Attention Is All You Need"; **ViT** (Vision Transformer) = a transformer that processes images by splitting them into fixed-size square patches and treating each patch as a token; **latent** = a compressed representation of an image produced by a separately-trained autoencoder (the VAE), so the diffusion model works on a small grid like 32×32×4 instead of a 256×256×3 image; **inductive bias** = the assumptions baked into an architecture's structure (convolutions assume locality and translation-invariance; transformers assume essentially nothing); **Gflops** = billions of floating-point operations per forward pass, a measure of compute cost independent of parameter count.
+
 ## Abstract (verbatim)
 
 > "We explore a new class of diffusion models based on the transformer architecture. We train latent diffusion models of images, replacing the commonly-used U-Net backbone with a transformer that operates on latent patches."
 
-## The contribution
+## The big argument, in one line
 
 The paper makes one big argument and supports it experimentally:
 
@@ -37,11 +47,13 @@ Specifically, the paper shows that:
 
 This kicked off the wave of DiT-based diffusion models (Pixart, SD3, Flux, Wan).
 
-## Architecture
+## How DiT actually works
 
-### Patchify
+### Patchify (input handling)
 
-For a `32×32×4` latent (from the [[latent-diffusion|VAE]]) and patch size `p`, you get `T = (32/p)²` tokens:
+DiT doesn't work on pixels — it works on a **latent** produced by a pretrained VAE (the same VAE Stable Diffusion uses). For a 256×256 image, the latent is `32×32×4`. So already you've shrunk the problem by 8×.
+
+Then DiT slices that latent into square patches of side `p`. Each patch becomes one token. The whole latent becomes a sequence of `T = (32/p)²` tokens that you feed into a transformer.
 
 | `p` | Tokens | Gflops impact |
 |-----|--------|---------------|
@@ -49,22 +61,22 @@ For a `32×32×4` latent (from the [[latent-diffusion|VAE]]) and patch size `p`,
 | 4 | 64 | medium |
 | 2 | 256 | high |
 
-Halving `p` **quadruples Gflops** while leaving parameter count unchanged. This is how the paper decouples model size from compute: same `DiT-XL` config can be sampled at `p=2` (expensive, high quality) or `p=8` (cheap, lower quality).
+Halving `p` **quadruples Gflops** while leaving parameter count unchanged. That's a big deal: it means the *same* DiT-XL config can be sampled at `p=2` (expensive, high quality) or `p=8` (cheap, lower quality). Compute and capacity are now separate dials.
 
-### Conditioning mechanism — the four candidates
+### How to inject "what timestep are we at" and "what class do we want"
 
-This is where the paper does its real work. They test four ways to inject timestep + class into the transformer:
+The transformer doesn't know what timestep `t` it's denoising at, and it doesn't know what class the user asked for. Those have to be injected somehow. The paper tested four ways:
 
-1. **In-context conditioning** — append `t` and `c` as extra tokens. Standard ViT, no architectural changes. Negligible compute overhead.
-2. **Cross-attention** — add a cross-attention layer per block that attends from image tokens to a `[t, c]` conditioning sequence. ~15% Gflop overhead.
-3. **Adaptive layer norm (adaLN)** — replace LayerNorm's fixed `γ, β` with MLP-regressed `γ(t,c), β(t,c)`. Compute-efficient.
-4. **adaLN-Zero** — extends adaLN with an additional `α(t,c)` scaling applied *before residuals*, AND zero-initializes so the block starts as the identity function.
+1. **In-context conditioning** — append `t` and `c` as extra tokens at the front of the sequence. Standard ViT, no architectural changes. Negligible compute overhead.
+2. **Cross-attention** — add a separate cross-attention layer per block that lets image tokens attend to a `[t, c]` conditioning sequence. ~15% Gflop overhead.
+3. **Adaptive layer norm (adaLN)** — LayerNorm normally has fixed scale and shift parameters (`γ, β`). adaLN instead has a small MLP compute those from `(t, c)`, so the normalization itself is conditioned on what we want.
+4. **adaLN-Zero** — adaLN plus an additional `α(t, c)` scaling applied *before* each residual connection, AND the MLP that produces `(γ, β, α)` is **zero-initialized** so each block starts as the identity function.
 
 ### The winner: adaLN-Zero
 
 Figure 5 of the paper compares all four at 400K training iters. **adaLN-Zero reached nearly half the FID of in-context conditioning, with the lowest compute overhead.**
 
-What makes adaLN-Zero special isn't the adaLN part — it's the **zero initialization**. The identity-init means each block adds nothing at the start of training and gradually learns to do useful work. Without this, the conditioning swamps the early-training signal.
+What makes adaLN-Zero special isn't the adaLN part — it's the **zero initialization**. Identity-init means each transformer block adds nothing on training step one. Conditioning information has to gradually push the block away from being a no-op, which lets training stabilize before the conditioning swamps the early-training signal. (Same trick as LoRA's zero-init `B` matrix, for the same reason.)
 
 The paper concludes:
 > "adaLN-Zero significantly outperforms vanilla adaLN."
@@ -79,6 +91,8 @@ The paper concludes:
 | DiT-XL | 28 | 1152 | 16 | ~676M | 29.1 |
 
 DiT-XL/2 (patch size 2): **118.6 Gflops** — this is the configuration that beat ADM at much lower compute.
+
+> Decode: `DiT-XL/2` is shorthand for "DiT-XL config, patch size 2." That naming convention follows DiT-XL/4, DiT-XL/8, etc. Same params, different compute.
 
 ## Scaling result
 
@@ -104,6 +118,8 @@ For 512×512:
 
 DiT-S/2 and DiT-B/4 have similar Gflops but very different parameter counts; they achieve **similar FID**. This is the paper's strongest evidence for the "Gflops, not params" claim — `param count alone does not predict FID; compute does.`
 
+This is the part that surprised people the most. Conventional wisdom was "more parameters = more capacity = better." DiT shows that for diffusion, what matters is how much compute you spend per forward pass. A small model run at small patch size (more tokens, more compute) beats a big model run at big patch size (fewer tokens, less compute) when their Gflops match.
+
 ## Training hyperparameters
 
 | Param | Value |
@@ -119,14 +135,18 @@ DiT-S/2 and DiT-B/4 have similar Gflops but very different parameter counts; the
 
 Strikingly simple recipe. The architecture, not the training tricks, is the contribution.
 
-## How `t` and class embeddings get combined
+## Math sketch — how `t` and class embeddings get combined
+
+This is the wiring that feeds `(t, c)` into adaLN-Zero. Following the paper:
 
 - `t` → 256-D sinusoidal frequency embedding → 2-layer MLP with SiLU → transformer hidden dim
 - `c` → class embedding → same projection
 - **Sum** `t_emb + c_emb`, pass through SiLU + linear
 - Output: 4× (adaLN) or **6× (adaLN-Zero)** the hidden dim, sliced into `γ, β, α` for the two LayerNorms in the block
 
-That 6× output is what's regressed for the per-block conditioning. For text-to-image variants like Flux, `c` becomes the text encoder output (T5 / CLIP) instead of a class embedding.
+> Decode the symbols: **sinusoidal embedding** = the same trick transformers use for positional encoding — turns a scalar into a fixed-size vector by feeding it through sines/cosines at different frequencies; **SiLU** = a smooth nonlinearity, sometimes called swish; **`γ, β, α`** = scale, shift, and residual-gate parameters produced by the MLP, applied inside the LayerNorm and around the residual connection. Why 6× the hidden dim? Because each transformer block has two LayerNorm spots (one before attention, one before MLP), and each needs three vectors (`γ, β, α`), so 2 × 3 = 6 slots of hidden-dim length.
+
+For text-to-image variants like Flux, `c` becomes the text encoder output (T5 / CLIP) instead of a class embedding.
 
 ## Limitations the paper acknowledges
 
@@ -134,7 +154,7 @@ That 6× output is what's regressed for the per-block conditioning. For text-to-
 - Plain class-conditional setup; doesn't address text-to-image directly (later papers like SD3, Flux extend it)
 - ImageNet only — they didn't try high-aesthetic data
 
-## What DiT became
+## What this paper changed downstream
 
 | Model | DiT lineage |
 |-------|-------------|
@@ -143,7 +163,7 @@ That 6× output is what's regressed for the per-block conditioning. For text-to-
 | Flux (2024) | MMDiT, double-stream + single-stream blocks |
 | Wan 2.2 (2024) | Spatiotemporal DiT for video |
 
-The "T2I/T2V models all use DiT" trend in 2024-2025 traces back directly to this paper.
+The "T2I/T2V models all use DiT" trend in 2024-2025 traces back directly to this paper. The U-Net era didn't immediately end — SDXL (2023) was still U-Net-based — but every new flagship model since SD3 has been some flavor of DiT.
 
 ## See Also
 

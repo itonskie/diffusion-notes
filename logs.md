@@ -71,3 +71,10 @@ Chronological record of wiki activity.
 - Pages created: [[reference/scheduler-comparison]] — naming map across A1111/k-diffusion/Diffusers/ComfyUI, sigma schedule modifiers (karras/sgm_uniform/etc), pragmatic chooser per model (Flux/SDXL/SD 1.5/Wan), per-sampler-family one-line explainers (Euler/Heun/DPM/DDIM/DDPM/LCM/UniPC/DEIS), step count heuristic
 - Pages updated: [[scheduler]] — added See-Also link to the new reference page
 - Closes the foundations reading list — last source on the Week 1 list
+
+### Rewrote all foundations pages in Feynman voice
+- Trigger: re-reading my own ingested notes was hard — too dense with assumed jargon (rank decomposition, frozen weights, score-matching, EMA, MMDiT, etc. used without first-use decodes)
+- Pages rewritten in Feynman style (intuition first, every domain term decoded on first use, math labeled and symbol-by-symbol explained): [[lora]] (manual calibration), [[generative-models]], [[diffusion-models]], [[fine-tuning]], [[scheduler]], [[guidance]], [[classifier-free-guidance]], [[u-net]], [[dit]], [[latent-diffusion]], [[rank-decomposition]], [[papers/lora]], [[ddpm]], [[papers/cfg]], [[papers/dit]], [[reference/flux-vs-sdxl]], [[reference/scheduler-comparison]], [[reference/diffusion-course]], [[foundations]] MOC
+- Schema updated: status field convention renamed (`developing` → `summary` — was misread as "page is incomplete"), restricted to papers/experiments only (concepts and references no longer carry it)
+- Tone rules formalized in [[CLAUDE]] with explicit Feynman rules (intuition lead, decode every domain term on first use, math optional and labeled, no naked equations)
+- Factual corrections caught during rewrite: [[papers/cfg]] had "divide by ~1 to get paper-style w" (should be subtract); [[latent-diffusion]] understated SD stack as "three networks" (four total, encoder is training-only); [[reference/flux-vs-sdxl]] had a self-contradicting claim about CFG-distilled forward passes; missing on-page decodes added for MMDiT, EMA, Adam, adaLN

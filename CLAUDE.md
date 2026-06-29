@@ -27,11 +27,20 @@ This repo is an LLM Wiki (Karpathy pattern). The project root is the Obsidian va
 - The `## See Also` section is for related pages that don't come up naturally in the body — discovery links.
 - When creating or updating a page, also check existing pages for places that should link back to the new content.
 
-## Tone for new pages
+## Tone for pages — Feynman, always
 
-- Plain English, short sentences. Mark is a senior engineer — no basics he already knows.
-- Notes are working notes, not polished tutorials. "What surprised me, what tripped me up, what I had to look up twice."
-- For concept and paper pages: intuition first, math sketch only if it earns its place.
+Mark is a senior software engineer who is **new to diffusion as a field**. He knows gradient descent, transformers as black boxes, optimization, GPUs. He does NOT have the domain vocabulary — rank decomposition, latent diffusion, CFG, scheduler, MMDiT, rectified flow, U-Net, DiT, classifier-free guidance, EMA, snr-loss. Treat every one of those as needing a one-sentence plain-English decode the first time it appears on a page.
+
+The rules for any concept, paper, or reference page:
+
+1. **Open with intuition and a concrete picture.** What problem does this solve? What's the bet the technique is making? Use an analogy if a real one exists — don't force one.
+2. **Define every domain term on first use** in one plain-English sentence. No exceptions. A page starts cold even if the term feels "obvious from context."
+3. **Math is optional reading.** Place it *after* the intuition, label it as such, and explain what each symbol means in words. No naked equations.
+4. **If you can't explain it without jargon, you haven't understood it yet.** Density is not depth.
+5. **Working notes voice.** "What surprised me, what tripped me up, what I had to look up twice." Not paper-grade prose.
+6. **Tables, lists, and concrete numbers earn their place.** Use them when they replace prose, not when they decorate it.
+
+If Mark's reaction to a passage would be "what does that word mean," the page failed. Rewrite.
 
 ## Working agreements
 

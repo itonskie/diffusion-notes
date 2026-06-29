@@ -11,77 +11,81 @@ updated: 2026-06-29
 
 The reading path for diffusion fundamentals — Week 1 of the [diffusion sprint](https://github.com/itonskie/diffusion-sprint).
 
-The goal of this week is to be able to *explain* the four self-test questions at the bottom in plain English, not to derive every equation. Stop reading after Day 2 even if the math feels incomplete — you learn more by training a LoRA than by reading another paper.
+## What you're about to learn, in one paragraph
 
-## Already in the wiki
+A **diffusion model** is a neural network that turns pure noise into a sensible image (or video, or audio) by *gradually denoising* it across many small steps. To train one, you take real images, add noise to them in known amounts, and teach a network to predict the noise. To generate one, you start with random noise and run the network in reverse, peeling noise off step by step until an image emerges. Modern image models like **Stable Diffusion** and **Flux** are this — plus tricks that make it cheap (run the diffusion in a compressed "latent" space, not raw pixels) and steerable (let a text prompt push the model toward what you want).
 
-Read these first — they're the synthesized form of what comes below:
+The goal of Week 1 is to be able to *explain* the four self-test questions at the bottom in plain English. Not derive every equation. Stop reading after Day 2 even if the math feels incomplete — you learn more by training a LoRA than by reading another paper.
 
-**Core concepts**
-- [[generative-models]] — what generative modeling is and where diffusion sits in the landscape
-- [[diffusion-models]] — the core "what is a diffusion model" page (iterative denoising, training loop, sampling loop, score-matching connection)
-- [[scheduler]] — noise schedules (training) vs samplers (inference); DDPM/DDIM/DPM++/LCM
-- [[classifier-free-guidance]] — how CFG steers conditional generation without a separate classifier
-- [[guidance]] — the general framework that CFG is one instance of (CLIP guidance, color guidance, etc.)
-- [[fine-tuning]] — adapting a pre-trained diffusion model on new data; the gateway to LoRA
-- [[lora]] — the dominant fine-tuning technique for diffusion (concept page; diffusion-focused)
-- [[rank-decomposition]] — math foundation for LoRA (SVD, low-rank approximation)
-- [[latent-diffusion]] — why SD/Flux run diffusion in compressed latent space, not pixels
+## Read in this order
 
-**Architectures**
-- [[u-net]] — backbone of SD 1.5 / SDXL; includes the three conditioning-injection patterns
-- [[dit]] — backbone of Flux / SD3 / Wan 2.2
+Each page below is a digested, Feynman-style explanation. One line per page tells you what you'll get out of it.
 
-**Papers**
-- [[ddpm]] — the foundational paper (status: developing)
-- [[papers/lora]] — original LoRA paper, NLP-focused (status: developing)
-- [[papers/cfg]] — Classifier-Free Guidance, with FID/IS empirical tradeoff (status: developing)
-- [[papers/dit]] — Diffusion Transformer architecture, the scaling story for Flux/SD3/Wan (status: developing)
+**Start here — the big picture**
+- [[generative-models]] — what "generative modeling" means and where diffusion fits among GANs, VAEs, and autoregressive models
+- [[diffusion-models]] — the core idea: iterative noise → image, how it's trained, how it samples, and why it works
+- [[latent-diffusion]] — the trick that makes Stable Diffusion and Flux affordable: run diffusion on a small compressed version of the image, not pixels
 
-**Reference**
-- [[reference/diffusion-course]] — HF course resource map (Units 1 + 2 ingested)
-- [[reference/flux-vs-sdxl]] — model comparison (12B Flux vs SDXL, license nuance, recommended inference settings, VRAM)
-- [[reference/scheduler-comparison]] — sampler/scheduler lookup table across A1111/Diffusers/ComfyUI naming, per-model recommendations
+**Architectures — the network shape that does the denoising**
+- [[u-net]] — the older U-shaped network used in SD 1.5 and SDXL, with the three ways text gets injected
+- [[dit]] — the transformer-shaped network used in Flux, SD3, and Wan 2.2; replaces U-Net for big modern models
 
-## Core path
+**How a single denoising run goes**
+- [[scheduler]] — the recipe for "how much noise at each step" — different recipes (DDPM, DDIM, DPM++, LCM) trade speed vs. quality
+- [[guidance]] — the umbrella idea of "nudge the denoising toward what we want"
+- [[classifier-free-guidance]] — the trick everyone actually uses to make a text prompt steer generation, without training a separate classifier
 
-Work through these in order. Each becomes a page in [[concepts/|concepts/]] as you go.
+**Fine-tuning — how you teach an existing model new tricks**
+- [[fine-tuning]] — the spectrum of options for adapting a pretrained model (full fine-tune, LoRA, textual inversion, ControlNet…)
+- [[lora]] — the cheap default: bolt on two skinny matrices that act as a small patch. Train the patch, ship a 200 MB file.
+- [[rank-decomposition]] — the linear-algebra reason LoRA is allowed to work (low-rank approximation, SVD)
 
-1. **Hugging Face Diffusion Course, Unit 1** — https://huggingface.co/learn/diffusion-course — the gentlest on-ramp; covers forward/reverse process intuition and the first end-to-end training loop. *Intro page ingested → [[diffusion-models]].*
-2. **Hugging Face Diffusion Course, Unit 2** — same site — fine-tuning, guidance, and conditional generation.
-3. **Lilian Weng, "What are Diffusion Models?"** — https://lilianweng.github.io/posts/2021-07-11-diffusion-models/ — the canonical written summary; tighter than the course, more math. *Ingested → see Core concepts above.*
+**Papers** — original sources for the techniques above. Each page is "Feynman summary + verbatim abstract + math sketch."
+- [[ddpm]] — the foundational diffusion paper (2020)
+- [[papers/lora]] — the original LoRA paper (NLP, 2021); diffusion application followed
+- [[papers/cfg]] — Classifier-Free Guidance (2022); two-pass trick that became the default
+- [[papers/dit]] — Diffusion Transformer (2022); the architecture behind Flux and SD3
 
-## Papers (skim — don't drown in math)
+**Reference** — comparison tables and resource maps
+- [[reference/diffusion-course]] — Hugging Face Diffusion Course, Units 1 + 2 (the gentle on-ramp)
+- [[reference/flux-vs-sdxl]] — picking between Flux and SDXL: VRAM, license, settings, where each shines
+- [[reference/scheduler-comparison]] — sampler name lookup across A1111 / Diffusers / ComfyUI plus per-model recommendations
 
-One page per paper in [[papers/|papers/]].
+## What was originally on the reading list
 
-- **DDPM** — https://arxiv.org/abs/2006.11239 — forward/reverse process formalism. Anchors [[ddpm]].
-- **LoRA** — https://arxiv.org/abs/2106.09685 — why rank decomposition works for fine-tuning. Anchors [[lora]] and [[rank-decomposition]].
-- **Classifier-Free Guidance** — https://arxiv.org/abs/2207.12598 — how CFG steers generation. Anchors [[classifier-free-guidance]].
-- **DiT (Diffusion Transformers)** — https://arxiv.org/abs/2212.09748 — modern Flux / SD3 / Wan 2.2 use this, not U-Net. Anchors [[dit]] and contrasts with [[u-net]].
+These are the sources that got ingested into the wiki above. You can read them directly if a wiki page feels thin, but the wiki *is* the synthesis — start with the pages, not the sources.
 
-## Architecture-specific reads
+**Core**
+- Hugging Face Diffusion Course, Units 1 + 2 — https://huggingface.co/learn/diffusion-course
+- Lilian Weng, "What are Diffusion Models?" — https://lilianweng.github.io/posts/2021-07-11-diffusion-models/
 
-- **Flux model card** on HF — what makes Flux different from SDXL. *Captured in [[reference/flux-vs-sdxl]].*
-- **One scheduler comparison post** (DPM++ / Euler / LCM). *Captured in [[reference/scheduler-comparison]] and concept page [[scheduler]].*
+**Papers (skim — don't drown in math)**
+- DDPM — https://arxiv.org/abs/2006.11239
+- LoRA — https://arxiv.org/abs/2106.09685
+- Classifier-Free Guidance — https://arxiv.org/abs/2207.12598
+- DiT — https://arxiv.org/abs/2212.09748
+
+**Architecture-specific**
+- Flux model card on HF — distilled into [[reference/flux-vs-sdxl]]
+- Scheduler comparison reads — distilled into [[reference/scheduler-comparison]] and [[scheduler]]
 
 ## Status: foundations reading complete
 
-All Week 1 reading-list sources have been ingested. The wiki now covers the four self-test questions below. Next steps are *practice*, not more reading:
+All Week 1 sources are ingested and digested. The wiki now covers the four self-test questions below. Next is *practice*, not more reading.
 
 - [ ] Day 3: ComfyUI local install — 3 prebuilt workflows
-- [ ] Day 4: Vast.ai + AI-Toolkit, prepare tiny dataset, verify training pipeline runs
+- [ ] Day 4: Vast.ai + AI-Toolkit, tiny dataset, verify training pipeline runs end-to-end
 - [ ] Day 5: First trained Flux LoRA + inference with/without comparison
-- [ ] Day 6-7: Publish notes (this repo) + write the Week 2 LoRA subject decision
+- [ ] Day 6-7: Publish the notes repo + write the Week 2 LoRA subject decision
 
 ## Self-test (interview answers — write these out)
 
 When you can answer all four in plain English without notes, Day 1-2 is done.
 
-1. Why does diffusion need many denoising steps and how does CFG affect that? → see [[diffusion-models]], [[classifier-free-guidance]]
-2. What does LoRA actually do to the weight matrices? Why rank 8 vs rank 32? → see [[lora]], [[rank-decomposition]]
-3. What's the difference between U-Net (SD 1.5 / SDXL) and DiT (Flux / SD3 / Wan 2.2)? → see [[u-net]], [[dit]]
-4. What does "scheduler" mean and why does it matter for training vs inference? → see [[scheduler]]
+1. **Why does diffusion need many denoising steps, and how does CFG affect that?** → see [[diffusion-models]], [[classifier-free-guidance]]
+2. **What does LoRA actually do to the weight matrices? Why rank 8 vs rank 32?** → see [[lora]], [[rank-decomposition]]
+3. **What's the difference between U-Net (SD 1.5 / SDXL) and DiT (Flux / SD3 / Wan 2.2)?** → see [[u-net]], [[dit]]
+4. **What does "scheduler" mean and why does it matter for training vs inference?** → see [[scheduler]]
 
 ## All foundations pages
 
