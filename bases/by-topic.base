@@ -1,0 +1,10 @@
+views:
+  - type: table
+    name: By Topic
+    groupBy:
+      property: tags
+      direction: ASC
+    order:
+      - file.name
+      - type
+      - date

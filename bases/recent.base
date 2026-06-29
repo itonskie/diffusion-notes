@@ -1,0 +1,14 @@
+filters:
+  and:
+    - note.type != "meta"
+views:
+  - type: table
+    name: Recently Updated
+    groupBy:
+      property: updated
+      direction: DESC
+    order:
+      - file.name
+      - tags
+      - updated
+    limit: 20

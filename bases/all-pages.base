@@ -1,0 +1,13 @@
+filters:
+  and:
+    - note.type != "meta"
+views:
+  - type: table
+    name: All Pages
+    groupBy:
+      property: type
+      direction: ASC
+    order:
+      - type
+      - file.name
+      - date
