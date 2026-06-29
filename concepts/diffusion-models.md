@@ -58,11 +58,22 @@ The exact step size, schedule, and stochasticity at each step is the job of the 
 - **The model architecture is decoupled from the generative process** — you can swap [[u-net]] for [[dit]] without changing the training algorithm.
 - **It scales** — the same recipe trains a 10M-parameter toy model on MNIST and a 12B-parameter Flux model on web-scale data.
 
+## Connection to score matching
+
+The noise prediction `ε_θ(x_t, t)` is, up to a known scaling, equivalent to predicting the **score** `∇_{x_t} log p(x_t)`:
+
+```
+s_θ(x_t, t) = -ε_θ(x_t, t) / √(1 - ᾱ_t)
+```
+
+That means a diffusion model is also a score model at multiple noise levels — sampling can be framed as Langevin dynamics over learned scores. This is the "score-based" or "SDE" framing (Song et al.); the noise-prediction "DDPM" framing is mathematically equivalent. Both views are useful: SDE is cleaner for theory, ε-prediction is cleaner for code.
+
 ## What this page does not cover
 
 - The actual math of the forward/reverse process — see [[ddpm]].
+- The variance schedule `β_t` and the difference between training-time noise schedules and inference-time samplers — see [[scheduler]].
 - Conditioning the model on text or class labels — see [[classifier-free-guidance]] and Unit 2 of the [[reference/diffusion-course]].
-- Latent diffusion (Stable Diffusion / Flux), which runs the diffusion process in compressed latent space rather than pixel space — covered in later units.
+- Latent diffusion (Stable Diffusion / Flux), which runs the diffusion process in compressed [[latent-diffusion|latent space]] rather than pixel space.
 
 ## See Also
 

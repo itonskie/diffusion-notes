@@ -17,10 +17,22 @@ The goal of this week is to be able to *explain* the four self-test questions at
 
 Read these first — they're the synthesized form of what comes below:
 
+**Core concepts**
 - [[generative-models]] — what generative modeling is and where diffusion sits in the landscape
-- [[diffusion-models]] — the core "what is a diffusion model" page (iterative denoising, training loop, sampling loop)
-- [[reference/diffusion-course]] — the HF course resource map and ingestion status
-- [[ddpm]] — stub for the foundational paper (status: inbox)
+- [[diffusion-models]] — the core "what is a diffusion model" page (iterative denoising, training loop, sampling loop, score-matching connection)
+- [[scheduler]] — noise schedules (training) vs samplers (inference); DDPM/DDIM/DPM++/LCM
+- [[classifier-free-guidance]] — how CFG steers conditional generation without a separate classifier
+- [[latent-diffusion]] — why SD/Flux run diffusion in compressed latent space, not pixels
+
+**Architectures**
+- [[u-net]] — backbone of SD 1.5 / SDXL
+- [[dit]] — backbone of Flux / SD3 / Wan 2.2
+
+**Papers**
+- [[ddpm]] — the foundational paper (status: exploring — math from Lilian Weng survey, not yet read in full)
+
+**Reference**
+- [[reference/diffusion-course]] — HF course resource map and ingestion status
 
 ## Core path
 
@@ -28,7 +40,7 @@ Work through these in order. Each becomes a page in [[concepts/|concepts/]] as y
 
 1. **Hugging Face Diffusion Course, Unit 1** — https://huggingface.co/learn/diffusion-course — the gentlest on-ramp; covers forward/reverse process intuition and the first end-to-end training loop. *Intro page ingested → [[diffusion-models]].*
 2. **Hugging Face Diffusion Course, Unit 2** — same site — fine-tuning, guidance, and conditional generation.
-3. **Lilian Weng, "What are Diffusion Models?"** — https://lilianweng.github.io/posts/2021-07-11-diffusion-models/ — the canonical written summary; tighter than the course, more math.
+3. **Lilian Weng, "What are Diffusion Models?"** — https://lilianweng.github.io/posts/2021-07-11-diffusion-models/ — the canonical written summary; tighter than the course, more math. *Ingested → see Core concepts above.*
 
 ## Papers (skim — don't drown in math)
 
