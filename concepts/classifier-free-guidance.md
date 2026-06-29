@@ -18,18 +18,21 @@ A trick for steering [[diffusion-models|diffusion models]] toward a condition (t
 
 Train a single conditional model `ε_θ(x_t, t, y)` where `y` is the condition. During training, randomly drop the condition with some probability (typically 10-20%) — when dropped, the model has to predict noise unconditionally. Now you have one network that can do both `ε_θ(x_t, t, y)` (conditional) and `ε_θ(x_t, t, ∅)` (unconditional).
 
-At inference, use both predictions and **extrapolate** away from the unconditional toward the conditional:
+At inference, combine both predictions and **extrapolate** from the unconditional toward the conditional. Two equivalent forms (different conventions in the wild — see also [[papers/cfg]]):
 
 ```
-ε̃_θ(x_t, t, y) = ε_θ(x_t, t, ∅) + w · (ε_θ(x_t, t, y) - ε_θ(x_t, t, ∅))
+ε̃_θ(x_t, t, y) = ε_θ(x_t, t, ∅) + s · (ε_θ(x_t, t, y) - ε_θ(x_t, t, ∅))    [UI convention, s = CFG scale]
+ε̃_θ(x_t, t, y) = (1 + w) · ε_θ(x_t, t, y) - w · ε_θ(x_t, t, ∅)             [paper convention, w = s - 1]
 ```
 
-where `w` is the **guidance scale** (sometimes written as `w + 1` depending on convention).
+Using `s` (the ComfyUI / A1111 "CFG scale" slider):
 
-- `w = 0` → pure unconditional generation (the prompt is ignored)
-- `w = 1` → pure conditional generation (no guidance amplification)
-- `w > 1` → amplified guidance — outputs adhere more strictly to the prompt
-- Typical SDXL/SD: `w ≈ 7`. Typical Flux: `w ≈ 3.5`. Higher than 10 usually over-saturates.
+- `s = 0` → pure unconditional generation (the prompt is ignored)
+- `s = 1` → pure conditional generation (no guidance amplification)
+- `s > 1` → amplified guidance — outputs adhere more strictly to the prompt
+- Typical SDXL/SD: `s ≈ 7`. Typical Flux: `s ≈ 3.5`. Higher than 10 usually over-saturates.
+
+The paper-convention `w` is `s - 1`. So a paper "w=6" matches a ComfyUI CFG=7. See [[papers/cfg]] for empirical FID/IS data at different `w`.
 
 ## Why it works
 
@@ -70,7 +73,9 @@ That's it. CFG is mostly an *inference-time* technique — training just needs t
 
 ## See Also
 
+- [[papers/cfg]]
 - [[diffusion-models]]
+- [[guidance]]
 - [[scheduler]]
 - [[ddpm]]
 - [[u-net]]

@@ -47,3 +47,9 @@ Chronological record of wiki activity.
 - Source: https://arxiv.org/abs/2106.09685 (via ar5iv HTML)
 - Pages created: [[papers/lora]] (paper-specific page with abstract, rank ablation Table 6, layer-selection Table 5, parameter savings, NLP results); [[lora]] (concept page focused on diffusion application: layer selection per-tool, choosing r for diffusion, alpha/strength, caption strategy, sprint workflow); [[rank-decomposition]] (math intuition: SVD, Eckart-Young, parameter count savings, why init matters)
 - ar5iv HTML render was rich — got all needed Table 2/5/6 ablations, hyperparams, parameter counts
+
+### Ingested: Classifier-Free Diffusion Guidance paper
+- Source: https://arxiv.org/abs/2207.12598 (via ar5iv HTML)
+- Pages created: [[papers/cfg]] — abstract verbatim, training algorithm (p_uncond dropout), implicit-classifier connection, FID/IS empirical tradeoff table for ImageNet 128×128
+- Pages updated: [[classifier-free-guidance]] — clarified that the paper's `w` and the ComfyUI "CFG scale" slider use different conventions (`s = w + 1`); linked to paper page
+- Key empirical finding: best FID at very low w (≈0.3, equivalent to CFG≈1.3), but text-to-image practice uses much higher CFG because the conditioning task is harder than class-conditional ImageNet

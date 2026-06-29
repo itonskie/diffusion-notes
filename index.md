@@ -37,3 +37,4 @@ Central map of all knowledge pages.
 | 2026-06-29 | Ingested HF Diffusion Course Unit 2 → [[fine-tuning]], [[guidance]]; [[u-net]] gained conditioning patterns section |
 | 2026-06-29 | Ingested DDPM paper → [[ddpm]] deepened to "developing" status (Table 2 ablation, FID/IS, U-Net details, progressive lossy decompression) |
 | 2026-06-29 | Ingested LoRA paper → [[papers/lora]], [[lora]] (diffusion-applied), [[rank-decomposition]] (SVD math) |
+| 2026-06-29 | Ingested CFG paper → [[papers/cfg]]; clarified two w conventions in [[classifier-free-guidance]] |

@@ -35,6 +35,7 @@ Read these first — they're the synthesized form of what comes below:
 **Papers**
 - [[ddpm]] — the foundational paper (status: developing)
 - [[papers/lora]] — original LoRA paper, NLP-focused (status: developing)
+- [[papers/cfg]] — Classifier-Free Guidance, with FID/IS empirical tradeoff (status: developing)
 
 **Reference**
 - [[reference/diffusion-course]] — HF course resource map (Units 1 + 2 ingested)
