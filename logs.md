@@ -42,3 +42,8 @@ Chronological record of wiki activity.
 - Source: https://arxiv.org/abs/2006.11239 (abstract page + ar5iv HTML render)
 - Pages updated: [[ddpm]] (status exploring → developing; added abstract verbatim, ablation Table 2, headline FID/IS results, U-Net details from Appendix B refs, progressive lossy decompression interpretation, score-matching equivalence)
 - PDF fetch returned binary — used ar5iv HTML render at https://ar5iv.labs.arxiv.org/html/2006.11239 to get past the abstract. Still missing from page: full optimizer config, EMA decay, batch size — would need to read Appendix B directly. Logged as open in the page.
+
+### Ingested: LoRA paper
+- Source: https://arxiv.org/abs/2106.09685 (via ar5iv HTML)
+- Pages created: [[papers/lora]] (paper-specific page with abstract, rank ablation Table 6, layer-selection Table 5, parameter savings, NLP results); [[lora]] (concept page focused on diffusion application: layer selection per-tool, choosing r for diffusion, alpha/strength, caption strategy, sprint workflow); [[rank-decomposition]] (math intuition: SVD, Eckart-Young, parameter count savings, why init matters)
+- ar5iv HTML render was rich — got all needed Table 2/5/6 ablations, hyperparams, parameter counts

@@ -24,6 +24,8 @@ Read these first — they're the synthesized form of what comes below:
 - [[classifier-free-guidance]] — how CFG steers conditional generation without a separate classifier
 - [[guidance]] — the general framework that CFG is one instance of (CLIP guidance, color guidance, etc.)
 - [[fine-tuning]] — adapting a pre-trained diffusion model on new data; the gateway to LoRA
+- [[lora]] — the dominant fine-tuning technique for diffusion (concept page; diffusion-focused)
+- [[rank-decomposition]] — math foundation for LoRA (SVD, low-rank approximation)
 - [[latent-diffusion]] — why SD/Flux run diffusion in compressed latent space, not pixels
 
 **Architectures**
@@ -31,7 +33,8 @@ Read these first — they're the synthesized form of what comes below:
 - [[dit]] — backbone of Flux / SD3 / Wan 2.2
 
 **Papers**
-- [[ddpm]] — the foundational paper (status: exploring — math from Lilian Weng survey, not yet read in full)
+- [[ddpm]] — the foundational paper (status: developing)
+- [[papers/lora]] — original LoRA paper, NLP-focused (status: developing)
 
 **Reference**
 - [[reference/diffusion-course]] — HF course resource map (Units 1 + 2 ingested)
