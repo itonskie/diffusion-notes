@@ -37,3 +37,8 @@ Chronological record of wiki activity.
 - Pages created: [[fine-tuning]], [[guidance]]
 - Pages updated: [[u-net]] (added "Three ways to inject conditioning" section); [[reference/diffusion-course]] (added Unit 2 section + table status)
 - Notebooks not yet worked through — captured as reference
+
+### Ingested: DDPM paper
+- Source: https://arxiv.org/abs/2006.11239 (abstract page + ar5iv HTML render)
+- Pages updated: [[ddpm]] (status exploring → developing; added abstract verbatim, ablation Table 2, headline FID/IS results, U-Net details from Appendix B refs, progressive lossy decompression interpretation, score-matching equivalence)
+- PDF fetch returned binary — used ar5iv HTML render at https://ar5iv.labs.arxiv.org/html/2006.11239 to get past the abstract. Still missing from page: full optimizer config, EMA decay, batch size — would need to read Appendix B directly. Logged as open in the page.

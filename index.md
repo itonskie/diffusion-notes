@@ -35,3 +35,4 @@ Central map of all knowledge pages.
 | 2026-06-29 | Ingested HF Diffusion Course Unit 1 intro → [[diffusion-models]], [[generative-models]], [[ddpm]], [[reference/diffusion-course]] |
 | 2026-06-29 | Ingested Lilian Weng diffusion post → [[scheduler]], [[classifier-free-guidance]], [[u-net]], [[dit]], [[latent-diffusion]]; deepened [[ddpm]] |
 | 2026-06-29 | Ingested HF Diffusion Course Unit 2 → [[fine-tuning]], [[guidance]]; [[u-net]] gained conditioning patterns section |
+| 2026-06-29 | Ingested DDPM paper → [[ddpm]] deepened to "developing" status (Table 2 ablation, FID/IS, U-Net details, progressive lossy decompression) |
