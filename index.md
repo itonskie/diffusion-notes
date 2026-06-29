@@ -32,3 +32,4 @@ Central map of all knowledge pages.
 | Date | Action |
 |------|--------|
 | 2026-06-29 | Wiki initialized; foundations MOC seeded from prior reading list |
+| 2026-06-29 | Ingested HF Diffusion Course Unit 1 intro → [[diffusion-models]], [[generative-models]], [[ddpm]], [[reference/diffusion-course]] |

@@ -13,11 +13,20 @@ The reading path for diffusion fundamentals — Week 1 of the [diffusion sprint]
 
 The goal of this week is to be able to *explain* the four self-test questions at the bottom in plain English, not to derive every equation. Stop reading after Day 2 even if the math feels incomplete — you learn more by training a LoRA than by reading another paper.
 
+## Already in the wiki
+
+Read these first — they're the synthesized form of what comes below:
+
+- [[generative-models]] — what generative modeling is and where diffusion sits in the landscape
+- [[diffusion-models]] — the core "what is a diffusion model" page (iterative denoising, training loop, sampling loop)
+- [[reference/diffusion-course]] — the HF course resource map and ingestion status
+- [[ddpm]] — stub for the foundational paper (status: inbox)
+
 ## Core path
 
 Work through these in order. Each becomes a page in [[concepts/|concepts/]] as you go.
 
-1. **Hugging Face Diffusion Course, Unit 1** — https://huggingface.co/learn/diffusion-course — the gentlest on-ramp; covers forward/reverse process intuition and the first end-to-end training loop.
+1. **Hugging Face Diffusion Course, Unit 1** — https://huggingface.co/learn/diffusion-course — the gentlest on-ramp; covers forward/reverse process intuition and the first end-to-end training loop. *Intro page ingested → [[diffusion-models]].*
 2. **Hugging Face Diffusion Course, Unit 2** — same site — fine-tuning, guidance, and conditional generation.
 3. **Lilian Weng, "What are Diffusion Models?"** — https://lilianweng.github.io/posts/2021-07-11-diffusion-models/ — the canonical written summary; tighter than the course, more math.
 
@@ -39,7 +48,7 @@ One page per paper in [[papers/|papers/]].
 
 When you can answer all four in plain English without notes, Day 1-2 is done.
 
-1. Why does diffusion need many denoising steps and how does CFG affect that? → see [[denoising-steps]], [[classifier-free-guidance]]
+1. Why does diffusion need many denoising steps and how does CFG affect that? → see [[diffusion-models]], [[classifier-free-guidance]]
 2. What does LoRA actually do to the weight matrices? Why rank 8 vs rank 32? → see [[lora]], [[rank-decomposition]]
 3. What's the difference between U-Net (SD 1.5 / SDXL) and DiT (Flux / SD3 / Wan 2.2)? → see [[u-net]], [[dit]]
 4. What does "scheduler" mean and why does it matter for training vs inference? → see [[scheduler]]
