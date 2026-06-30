@@ -3,6 +3,9 @@
 .idea/
 *.swp
 
+# Obsidian per-user vault state (config + workspace layout)
+.obsidian/
+
 # Large model artifacts — don't commit
 *.safetensors
 *.ckpt
