@@ -31,6 +31,8 @@ Each page below is a digested, Feynman-style explanation. One line per page tell
 - [[dit]] — the transformer-shaped network used in Flux, SD3, and Wan 2.2; replaces U-Net for big modern models
 
 **How a single denoising run goes**
+- [[clip]] — the translator that turns your text prompt into a conditioning vector the model can use
+- [[embeddings]] — the four distinct things this field calls "embedding" and how to keep them straight
 - [[scheduler]] — the recipe for "how much noise at each step" — different recipes (DDPM, DDIM, DPM++, LCM) trade speed vs. quality
 - [[guidance]] — the umbrella idea of "nudge the denoising toward what we want"
 - [[classifier-free-guidance]] — the trick everyone actually uses to make a text prompt steer generation, without training a separate classifier
@@ -47,6 +49,7 @@ Each page below is a digested, Feynman-style explanation. One line per page tell
 - [[papers/dit]] — Diffusion Transformer (2022); the architecture behind Flux and SD3
 
 **Reference** — comparison tables and resource maps
+- [[reference/comfyui]] — what ComfyUI is, why it uses nodes, what's on your install, vocabulary
 - [[reference/diffusion-course]] — Hugging Face Diffusion Course, Units 1 + 2 (the gentle on-ramp)
 - [[reference/flux-vs-sdxl]] — picking between Flux and SDXL: VRAM, license, settings, where each shines
 - [[reference/scheduler-comparison]] — sampler name lookup across A1111 / Diffusers / ComfyUI plus per-model recommendations
